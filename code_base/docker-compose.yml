@@ -1,0 +1,21 @@
+services:
+  frontend:
+    build: ./frontend/
+    restart: always
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - frontend-tier
+    environment:
+      API_BASE_URL: http://backend:8080
+
+  backend:
+    build: ./backend/
+    restart: always
+    networks:
+      - frontend-tier
+
+networks:
+  frontend-tier:
